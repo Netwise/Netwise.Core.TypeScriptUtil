@@ -1,0 +1,35 @@
+﻿<#@ template debug="false" hostspecific="false"  language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+namespace <#= this.EntityName #>{
+	export const logicalName: string = "<#=this.EntityName #>";
+	export class <#= Name #> {
+		public readonly id: string = Xrm.Page.data.entity.getId();
+		public tabs: Tabs = new Tabs(); 
+		public sections: Sections = new Sections(); 
+		public fields: Fields = new Fields(); 
+		
+	}
+	class Tabs {
+	<#foreach( var tab in Tabs)		{ #>
+	public <#= this.ToAlphaNumeric(tab.Name) #>: Netwise.Common.Tab = new Netwise.Common.Tab("<#= tab.Name #>", <#= tab.Number #>); 
+	<#}#>
+	}
+	class Sections {
+	<#foreach( var s in Sections)	{ #>
+	public <#= this.ToAlphaNumeric(s.Name) #>: Netwise.Common.Section = new Netwise.Common.Section("<#= s.Name #>", <#= s.Number #>); 
+	<#}#>
+	}
+	class Fields {
+	<#foreach( var field in Fields)		{ #>
+	public <#= this.ToAlphaNumeric(field.Name) #>: Netwise.Common.Field<<#=field.Type#>> = new Netwise.Common.Field<<#=field.Type#>>("<#=field.Name #>"); 
+		<#}#>
+		}
+
+	<#foreach(var en in Enums)
+	{#>
+	export enum <#= en.Name #>Enum { <#foreach(var i in en.Values){ #><#=i.Value #>=<#=i.Key #>,  <# } #> }
+	<#}#>
+}
