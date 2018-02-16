@@ -93,5 +93,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Typescript files\Core.ts" />
+    <TypeScriptCompile Include="Typescript files\Xrm-2015.d.ts" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
